@@ -9,22 +9,27 @@ event.data <- data.frame(x = character(), y = character(), listing = character()
 
 # Loop through 20 pages of Creative Loafing events calendar, and grab latitude, longitude, date, and event
 # description into a data frame; write to csv.
-# NOTE: STILL NEED TO FIGURE OUT HOW TO EXTRACT THE DATE
-# Date is available in the event page itself
-#     XPath: /html/head/comment()[7] --> DataObject "Event", Attribute "Date"
 
 for (i in 1:20){
+     
      print(paste0("page: ",i))
      ifelse(i == 1,
             page <- base.page,
             page <- paste0(base.page, "&page=", i)
      )
      
+     page.html <- read_html(page)
+     
      # Get all link objects from each calendar event
      # Scraping note: This is working off of http://clatl.com/atlanta/EventSearch?sortType=date
      # and the CSS selector is ".listingLocation a:nth-child(2)"
-     map.links <- read_html(page) %>% html_nodes(".listingLocation a:nth-child(2)") %>% 
+     map.links <- page.html %>% html_nodes(".listingLocation a:nth-child(2)") %>% 
           html_attr("href")
+     
+     event.dates <- page.html %>% html_nodes(".EventListing.clearfix script") %>% html_text() %>% 
+          str_extract("\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z") %>% as.Date()
+     
+     event.location.links <- page.html %>% html_nodes(".listingLocation a:contains(map)") %>% html_attr("href")
      
      # Pick a map link, navigate to it, and grab info
      # Scraping note: This is working off of the output of the above code, where each link html
@@ -41,16 +46,17 @@ for (i in 1:20){
      }
      
      # Get listing raw text
-     listing.raw.text <- read_html(page) %>% 
+     listing.raw.text <- page.html %>% 
           html_nodes(".listing") %>% html_text()
      
      # Create data frame of x, y coordinates (only if they have the same length)
      if((length(listing.raw.text) == length(map.coordinates)) &
         length(listing.raw.text) == length(map.links)){
-          df <- data.frame(x = sapply(map.coordinates, function(x) unname(x[1])), 
-                           y = sapply(map.coordinates, function(x) unname(x[2])),
+          df <- data.frame(latlon = paste0("(",sapply(map.coordinates, function(x) unname(x[1])), 
+                           ", ",sapply(map.coordinates, function(x) unname(x[2])), ")"),
                            map.links = map.links,
-                           listing = listing.raw.text)
+                           listing = listing.raw.text,
+                           event.dates = event.dates, event.location.links = event.location.links)
           
           event.data <- rbind(event.data, df)
      }
