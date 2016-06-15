@@ -2,9 +2,9 @@
 Scraping &amp; Collecting data to plug in to the [Atlanta Citygram App](www.github.com/codeforatlanta/citygram)
 
 ### What is Citygram?
-Code For America developed the [Citygram App](www.citygram.org) to provide a clean, reliable, customizable interface for people to get notifications of city-related location-specific events relevant to them.  Once the app is up and running for Atlanta, we'll be able to show Atlanta government personnel a clean platform to make open data useful, somewhat centralized, and exciting.
+Code For America developed the [Citygram App](http://www.citygram.org) to "subscribe to your city": providing a clean, reliable, customizable interface for people to get notifications of city-related location-specific events relevant to them.  Once the app is up and running for Atlanta, we'll be able to show Atlanta government personnel a clean platform to make open data useful, somewhat centralized, and exciting.
 
-Code For Atlanta has 2 main repos for this project:
+Code For Atlanta has 2 main github repos for this project:
 - App (forked repo from Code For America): www.github.com/codeforatlanta/citygram
 - Data (this repo)
     - Each data source will be stored in a subfolder in this repo.  Include the scraping/cleaning/munging code as well as the cleaned data, and whatever other files you need.  Any language welcome.  As of 6/15/16 we've use Ruby, Python, and R for a couple of the datasets :)
