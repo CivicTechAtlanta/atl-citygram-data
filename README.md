@@ -1,13 +1,22 @@
 # atl-citygram-data
-Scraping &amp; Collecting data to plug in to the Atlanta Citygram app
+Scraping &amp; Collecting data to plug in to the [Atlanta Citygram App](www.github.com/codeforatlanta/citygram)
+
+### What is Citygram?
+Code For America developed the [Citygram App](www.citygram.org) to provide a clean, reliable, customizable interface for people to get notifications of city-related location-specific events relevant to them.  Once the app is up and running for Atlanta, we'll be able to show Atlanta government personnel a clean platform to make open data useful, somewhat centralized, and exciting.
+
+Code For Atlanta has 2 main repos for this project:
+- App (forked repo from Code For America): www.github.com/codeforatlanta/citygram
+- Data (this repo)
+    - Each data source will be stored in a subfolder in this repo.  Include the scraping/cleaning/munging code as well as the cleaned data, and whatever other files you need.  Any language welcome.  As of 6/15/16 we've use Ruby, Python, and R for a couple of the datasets :)
 
 ### How to Contribute:
-- Join the Code For Atlanta citygram Slack Channel to discuss the project
+- Join the Code For Atlanta citygram Slack Channel to discuss the project: http://codeforatlanta.slack.com/messages/citygram
 - Check out the "Issues" section of this repo for next steps
 
-This is a place to store scraping/cleaning code and the scraped data.  See the diagram below showing the overall data flow.
-
-These first couple datasets will serve as a proof-of-concept for the citygram app in Atlanta.  The goal is to show the value of this app to residents and government agencies, and drive excitement for opening other datasets on the web, so we can plug them in.
+### Project Phases
+1. Get initial datasets & publish to the ATL Socrata Brigade
+2. Set up http://github.com/codeforatlanta/citygram with code to map to the datasets on Socrata
+3. Submit pull request to load the above into the Code For America citygram repo (this is the step when the app is deployed for Atlanta)
 
 ![](images/atl-citygram-data-flow.PNG "ATL Citygram Data Flow")
 
