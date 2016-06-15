@@ -1,5 +1,5 @@
 # atl-citygram-data
-Scraping &amp; Collecting data to plug in to the [Atlanta Citygram App](www.github.com/codeforatlanta/citygram)
+Scraping &amp; Collecting data to plug in to the Citygram app for Atlanta
 
 ### What is Citygram?
 Code For America developed the [Citygram App](http://www.citygram.org) to "subscribe to your city": providing a clean, reliable, customizable interface for people to get notifications of city-related location-specific events relevant to them.  Once the app is up and running for Atlanta, we'll be able to show Atlanta government personnel a clean platform to make open data useful, somewhat centralized, and exciting.
