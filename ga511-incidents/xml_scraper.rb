@@ -1,4 +1,3 @@
-require 'pry'
 require 'csv'
 require 'mechanize'
 
@@ -16,5 +15,4 @@ CSV.open("./file.csv", "wb") do |csv|
     description = (item.search("description").text).delete("<br>")
     csv << [guid,title,lats_longs[0],lats_longs[1],description]
   end
-  binding.pry
 end
