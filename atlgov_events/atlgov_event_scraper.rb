@@ -4,9 +4,8 @@ require 'date'
 
 class CityEvent
 
-  def initialize file_name
+  def initialize
     @base = 'http://www.atlantaga.gov/'
-    @file_name = file_name
     @mechanize = Mechanize.new
   end
 
@@ -20,22 +19,21 @@ class CityEvent
   end
 
   def parse_event
-    events = []
+    events = Array.new
     @event_list.each_with_index do |x,i|
+      events << []
       date = parse_date((@date_list[i].text).strip)
-      event = (x.css('a').text).strip
+      description = (x.css('a').text).strip
       time = parse_time((x.css('span').text).strip)
       link = (@base + x.children[3]['href']).strip
-      events.push(event, date, time, link)
-    end
+      events[i].push(description, date, time, link)
+    end  
     return events
   end
 
   def parse_time(line)
     if line =~ /\d+:\d+\W(am|pm)/i
       line = line[/\d+:\d+\W(am|pm)\s-\s\d+:\d+\W(am|pm)/i]
-    else
-      p "error"
     end
   end
 
@@ -64,21 +62,24 @@ class CityEvent
     return year
   end
 
-## In next iteration will change output to CSV upon getting clarification on mapping coordinates
-  def output data
-    file = File.open(@file_name, "w" )
-    file << data
-  end
-
-
   def get_event
     event_page
     find_events
     data = parse_event
+    
     output data
   end
-end
 
-event = CityEvent.new "./output.txt"
+  def output data
+    CSV.open("./file_atlgov_events.csv", "wb") do |csv|
+      csv << ["Description","Date","Time","Link"]
+      data.each do |item|
+        csv << item
+      end
+    end
+  end
+end
+event = CityEvent.new
 event.get_event
+
 
