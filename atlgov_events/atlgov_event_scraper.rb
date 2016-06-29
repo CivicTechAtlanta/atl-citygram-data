@@ -56,8 +56,7 @@ class CityEvent
     event_date = Date.parse(date)
     todays_date = Date.parse(Time.now.to_s)
     diff = event_date.month - todays_date.month
-    temp = event_date.year
-    binding.pry
+
     if diff.between?(-5,6)
       year = todays_date.year
     elsif diff >= 7
