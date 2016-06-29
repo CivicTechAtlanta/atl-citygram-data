@@ -1,6 +1,7 @@
 require 'csv'
 require 'mechanize'
 require 'date'
+require 'pry'
 
 class CityEvent
 
@@ -53,11 +54,16 @@ class CityEvent
 ## The website lacks year in the date so this method determines most likely year of the event
   def which_year(date)
     event_date = Date.parse(date)
-    todays_date = Time.now
-    if todays_date.year >= event_date.year
-      year = todays_date.year + 1
-    else
-      year = event_date.year
+    todays_date = Date.parse(Time.now.to_s)
+    diff = event_date.month - todays_date.month
+    temp = event_date.year
+    binding.pry
+    if diff.between?(-5,6)
+      year = todays_date.year
+    elsif diff >= 7
+      year = (event_date.year) -1
+    elsif diff <=-6
+      year = (event_date.year) + 1
     end
     return year
   end
